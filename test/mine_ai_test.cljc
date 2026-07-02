@@ -1,6 +1,23 @@
-(ns mine_ai-test
+(ns mine-ai-test
+  "Restoration-fidelity tests — one per original kami-mine-ai Rust test
+  (kami-engine/kami-mine-ai/src/lib.rs `mod tests`, deleted PR #82)."
   (:require [clojure.test :refer [deftest is testing]]
-            [mine_ai]))
+            [mine-ai]))
+
 (deftest namespace-loads
   (testing "the restored CLJC namespace loads"
-    (is (some? mine_ai))))
+    (is (some? (the-ns 'mine-ai)))))
+
+;; mirrors `computes_high_risk_for_inactive_low_grade_mine`
+(deftest computes-high-risk-for-inactive-low-grade-mine
+  (let [mine {:status :suspended}
+        rec {:quantity-tons 300000.0 :grade "low"}
+        risk (mine-ai/assess-extraction-risk mine rec)]
+    (is (= :high (:level risk)))
+    (is (>= (:score risk) 70))))
+
+;; mirrors `plans_with_lower_pacing_for_high_risk`
+(deftest plans-with-lower-pacing-for-high-risk
+  (let [plan (mine-ai/plan-next-extraction 100000.0 40000.0 :high)]
+    (is (= 60000.0 (:remaining-tons plan)))
+    (is (= 42000.0 (:suggested-next-period-tons plan)))))
