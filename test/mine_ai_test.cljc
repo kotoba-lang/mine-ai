@@ -6,7 +6,7 @@
 
 (deftest namespace-loads
   (testing "the restored CLJC namespace loads"
-    (is (some? (the-ns 'mine-ai)))))
+    (is (some? (find-ns 'mine-ai)))))
 
 ;; mirrors `computes_high_risk_for_inactive_low_grade_mine`
 (deftest computes-high-risk-for-inactive-low-grade-mine
