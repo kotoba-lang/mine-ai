@@ -11,7 +11,7 @@
   kotoba-lang/mine-pds for `mine`/`mine-status`/`extraction-record` data
   shapes (duck-typed here, not a hard code dependency — matching the
   pattern used for kotoba-lang/brep's sketch-constraint-kind vocabulary)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def risk-levels #{:low :medium :high})
 
@@ -37,7 +37,7 @@
 
           (< (:quantity-tons latest) 5000.0)
           (as-> [s r] [(+ s 10) (conj r "low throughput can indicate instability")]))
-        grade (str/lower-case (:grade latest))
+        grade (str/lower (:grade latest))
         [score reasons]
         (cond-> [score reasons]
           (str/includes? grade "low")
