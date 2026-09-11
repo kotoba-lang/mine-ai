@@ -16,7 +16,7 @@ Depends on `kotoba-lang/mine-pds` for `mine`/`mine-status`/
 
 Restored — the single-namespace risk-scoring/planning logic ported from
 the original 165-line Rust `lib.rs`, with both original Rust unit tests
-mirrored 1:1 in `test/mine_ai_test.cljc` (+1 smoke test) — 3 tests / 5
+mirrored 1:1 in `test/mine_ai_test.cljk` (+1 smoke test) — 3 tests / 5
 assertions, 0 failures. Pure data + pure functions throughout; no IO/GPU.
 
 ## Develop
